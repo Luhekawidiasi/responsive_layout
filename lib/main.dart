@@ -6,115 +6,144 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Biodata Diri',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const BiodataPage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+class BiodataPage extends StatelessWidget {
+  const BiodataPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        children: [
-          // Sidebar
-          Container(
-            width: 200,
-            color: Colors.blueGrey,
-            child: Column(
-              children: [
-                DrawerHeader(
-                  child: Text(
-                    'MENU',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.blueGrey,
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.home, color: Colors.white),
-                  title: Text('Home', style: TextStyle(color: Colors.white)),
-                ),
-                ListTile(
-                  leading: Icon(Icons.settings, color: Colors.white),
-                  title:
-                      Text('Settings', style: TextStyle(color: Colors.white)),
-                ),
-                ListTile(
-                  leading: Icon(Icons.contact_page, color: Colors.white),
-                  title: Text('Contact', style: TextStyle(color: Colors.white)),
-                ),
-              ],
-            ),
-          ),
-          // Main Content Area (Expanded)
-          Expanded(
-            child: Column(
-              children: [
-                // Header
-                Container(
-                  height: 50,
-                  color: Colors.blue,
-                  child: Center(
-                    child: Text(
-                      'Data Psikolog',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                      ),
-                    ),
-                  ),
-                ),
-                // Content
-                Expanded(
-                  child: Container(
-                    color: Colors.white,
-                    child: Center(
-                      child: Text(
-                        'DATA',
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: Colors.black,
+      appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 36, 172, 240),
+          leading: const Icon(Icons.people_outline),
+          title: const Center(
+            child: Text('BIODATA DIRI'),
+          )),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(19.0),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              bool isWideScreen = constraints.maxWidth > 300;
+              return Flex(
+                direction: isWideScreen ? Axis.horizontal : Axis.vertical,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Foto dan Identitas
+                  Flexible(
+                    flex: 2,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: Image.asset(
+                            'assets/WhatsApp Image 2024-11-04 at 08.58.07.jpeg',
+                            height: 350,
+                            width: 300,
+                            fit: BoxFit.cover,
+                          ),
+                          // Ganti dengan path foto Anda
                         ),
-                      ),
+                        const SizedBox(height: 20),
+                        const Text(
+                          'Nama: Luh Eka Widiasih',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const Text(
+                          'NIM: 42230065',
+                          style: TextStyle(fontSize: 18),
+                          textAlign: TextAlign.center,
+                        ),
+                        const Text(
+                          'Prodi: Teknologi Informasi',
+                          style: TextStyle(fontSize: 18),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
                   ),
-                ),
-              ],
-            ),
+                  const SizedBox(width: 40, height: 30),
+
+                  // Deskripsi dan Kemampuan
+                  Expanded(
+                    flex: 4,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const SizedBox(
+                            height:
+                                30), // Menambahkan jarak sebelum teks "Deskripsi Diri:"
+                        const Text(
+                          'Deskripsi Diri:',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 8.0),
+                          child: Text(
+                            'Hallo Saya Luh Eka Widiasih biasa dipanggil widi saya adalah seorang karyawan di Universitas Pendidikan Nasional (Undiknas) dan juga sedang melanjutkan study di jurusan Teknologi Informasi  di Universitas Pendidikan Nasional (Undiknas),'
+                            ' Melalui peran ini, saya berharap dapat mengembangkan kemampuan profesional dan akademis saya, serta bersemangat untuk mempelajari hal-hal baru di bidang teknologi. ',
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(
+                            'Kemampuan:',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        // List Kemampuan
+                        Flexible(
+                          child: ListView(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: const [
+                              ListTile(
+                                leading: Icon(Icons.check, color: Colors.blue),
+                                title: Text('Pengembangan HTML,JS'),
+                              ),
+                              ListTile(
+                                leading: Icon(Icons.check, color: Colors.blue),
+                                title: Text('Memasak'),
+                              ),
+                              ListTile(
+                                leading: Icon(Icons.check, color: Colors.blue),
+                                title: Text('Pengolahan SQL'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
-        ],
+        ),
       ),
     );
   }
